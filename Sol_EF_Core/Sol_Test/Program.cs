@@ -1,5 +1,4 @@
-﻿using Sol_Test.Repository;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 
 namespace Sol_Test
@@ -14,17 +13,7 @@ namespace Sol_Test
 
                 try
                 {
-                    UserRepository userRepository = new UserRepository(new DbModels.DbContexts.EFCoreContext());
-
-                    var joinData =
-                     await
-                     userRepository
-                         .GetUserJoinDataAsync();
-
-                    var multipleData =
-                        await
-                           userRepository
-                           .GetUserMultipleDataAsync();
+                   
                 }
                 catch(Exception ex)
                 {
