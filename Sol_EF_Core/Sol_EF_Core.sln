@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFramework.Query", "EntityFramework.Query\EntityFramework.Query.csproj", "{6B7A9F43-381F-43C4-8F2B-75C35B23DFEF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFrameworkCore.Query", "EntityFramework.Query\EntityFrameworkCore.Query.csproj", "{6B7A9F43-381F-43C4-8F2B-75C35B23DFEF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sol_Test", "Sol_Test\Sol_Test.csproj", "{31A8F213-6966-47A3-9FBA-6C862B3505B8}"
 EndProject
