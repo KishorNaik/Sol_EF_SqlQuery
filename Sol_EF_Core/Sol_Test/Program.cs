@@ -4,8 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
-using EntityFramework.Query;
 using System.Linq;
+using EntityFrameworkCore.Query;
 
 namespace Sol_Test
 {

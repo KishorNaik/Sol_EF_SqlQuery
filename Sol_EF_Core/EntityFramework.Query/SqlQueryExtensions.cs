@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EntityFramework.Query
+namespace EntityFrameworkCore.Query
 {
     public static class SqlQueryExtensions
     {
