@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -183,6 +184,56 @@ namespace EntityFrameworkCore.Query
             finally
             {
                 dbConnection.Close();
+            }
+        }
+
+        public async static Task<List<TResultSet>> SelectReadAsync<TResultSet>(this DbDataReader dataReader)
+        {
+            try
+            {
+                List<TResultSet> list = new List<TResultSet>();
+                TResultSet obj = default(TResultSet);
+
+                while (await dataReader.ReadAsync())
+                {
+                    obj = Activator.CreateInstance<TResultSet>();
+                    foreach (PropertyInfo prop in obj.GetType().GetProperties())
+                    {
+                        if (await dataReader.HasColumnAsync(prop.Name))
+                        {
+                            if (!object.Equals(dataReader[prop.Name], DBNull.Value))
+                            {
+                                prop.SetValue(obj, dataReader[prop.Name], null);
+                            }
+                        }
+                    }
+                    list.Add(obj);
+                }
+                return list;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        private static async Task<bool> HasColumnAsync(this DbDataReader dbDataReader, string columnName)
+        {
+            try
+            {
+                return await Task.Run(() =>
+                {
+                    for (int counter = 0; counter < dbDataReader.FieldCount; counter++)
+                    {
+                        if (dbDataReader.GetName(counter).Equals(columnName, StringComparison.InvariantCultureIgnoreCase))
+                            return true;
+                    }
+                    return false;
+                });
+            }
+            catch
+            {
+                throw;
             }
         }
 
