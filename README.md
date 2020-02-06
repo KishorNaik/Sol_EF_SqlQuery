@@ -151,7 +151,7 @@ You call this procedure by passing UsersMultipleResultSetModel as the type param
 
 ### Below code is working on following version only.
 #### 1. EntityFrameworkCore.Query -Version 1.2.6
-#### 1. EntityFrameworkCore.Query -Version 1.2.6.2
+#### 2. EntityFrameworkCore.Query -Version 1.2.6.2
 
 ```C#
 
