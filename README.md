@@ -6,12 +6,20 @@ In this library we can add custom result set model class (Complex Types) as per 
 
 ### Using Nuget Package Manger:
 ```
+Old Package
 PM> Install-Package EntityFrameworkCore.Query -Version 1.2.6
+
+Recommended package
+PM> Install-Package EntityFrameworkCore.Query -Version 1.2.6.2
 ```
 
 ### Using .Net CLI:
 ```
+Old Package
 > dotnet add package EntityFrameworkCore.Query --version 1.2.6
+
+Recommended package
+> dotnet add package EntityFrameworkCore.Query --version 1.2.6.2
 ```
 
 
@@ -20,14 +28,21 @@ PM> Install-Package EntityFrameworkCore.Query -Version 1.2.6
 
 ### Using Nuget Package Manger:
 ```
+Old Package
 PM> Install-Package EntityFrameworkCore.Query -Version 1.3.1
+
+Recommended package
+PM> Install-Package EntityFrameworkCore.Query -Version 1.3.1.2
 ```
 
 ### Using .Net CLI:
 ```
+Old Package
+> dotnet add package EntityFrameworkCore.Query --version 1.3.1
+
+Recommended package
 > dotnet add package EntityFrameworkCore.Query --version 1.3.1
 ```
-
 
 ### Step 1
 If you are working with Visual Studio, you can use the Package Manager Console commands to generate the the code files for the model.
@@ -132,7 +147,13 @@ public class UsersMultipleResultSetModel
 }
 ```
 You call this procedure by passing UsersMultipleResultSetModel as the type parameter to the SqlQueryMultipleAsync method:
+
+### Below code is working on following version only.
+#### 1. EntityFrameworkCore.Query -Version 1.2.6
+#### 1. EntityFrameworkCore.Query -Version 1.2.6.2
+
 ```C#
+
 // Make instance of EfCoreContext
 EFCoreContext efCoreContext = new EFCoreContext();
 
@@ -140,11 +161,8 @@ EFCoreContext efCoreContext = new EFCoreContext();
 
 try
 {
-
-
     List<TblUsers> listUserModel = new List<TblUsers>();
     List<TblUserLogin> listUserLoginModel = new List<TblUserLogin>();
-
 
     decimal userId = 2; // Get Current User Data
 
@@ -210,6 +228,72 @@ catch
 
 ```
 
+You call this procedure by passing UsersMultipleResultSetModel as the type parameter to the SqlQueryMultipleAsync and SelectReadAsync extension method:
+
+### Below code is working on following version only.
+#### 1. EntityFrameworkCore.Query -Version 1.2.6.2
+
+```C#
+
+// Make instance of EfCoreContext
+EFCoreContext efCoreContext = new EFCoreContext();
+
+#region Returning Multiple Result Sets from a Stored Procedure
+
+try
+{
+    List<TblUsers> listUserModel = new List<TblUsers>();
+    List<TblUserLogin> listUserLoginModel = new List<TblUserLogin>();
+
+    decimal userId = 2; // Get Current User Data
+
+    // Make Sql Parameters
+    List<SqlParameter> sqlParameters1 = new List<SqlParameter>();
+    sqlParameters1.Add(new SqlParameter("@UserId", userId));
+
+    // Specify the procedure name with parameter
+    String sqlCommand = "uspGetUsersMultiResultSet";
+
+    // get Multiple Select query data
+    var getMultileSelectQueryData=
+        (
+            await
+            efCoreContext
+            .SqlQueryMultipleAsync<UsersMultipleResultSetModel>(
+                sqlCommand,
+                sqlParameters1,
+                System.Data.CommandType.StoredProcedure,
+                async (dbReaderObj) =>
+                {
+                    // get First Result Set (First Select Query)
+		    listUserModel1 = await dbReaderObj.SelectReadAsync<TblUsers>();
+
+		    // get Next Result Set
+		    await dbReaderObj.NextResultAsync();
+
+		    // get Second Result Set (Second Select Query)
+		   listUserLoginModel1 = await dbReaderObj.SelectReadAsync<TblUserLogin>();
+                    
+                    // Map two lists Object into MultiResult Set Model
+                    return new UsersMultipleResultSetModel()
+                    {
+                        ListUsers = listUserModel,
+                        ListUserLogin = listUserLoginModel
+                    };
+                }
+            )
+        );
+
+}
+catch
+{
+    throw;
+}
+
+#endregion 
+
+```
+
 ### Note
 If you are using .Net Core 2.2 then add following namespace for SqlParameter Class.
 ```C#
@@ -220,9 +304,3 @@ If you are using .Net Core 3.1 then add following namespace for SqlParameter Cla
 ```C#
 using Microsoft.Data.SqlClient;
 ```
-
-
-
-
-
-
