@@ -3,6 +3,7 @@ In this library we can add custom result set model class (Complex Types) as per 
 
 ### Use following nuget package for Asp.net Core 2.2 or .Net Core 2.2
 [![Generic badge](https://img.shields.io/badge/Nuget-1.2.6-<COLOR>.svg)](https://www.nuget.org/packages/EntityFrameworkCore.Query/1.2.6)
+[![Generic badge](https://img.shields.io/badge/Nuget-1.2.6.2-<COLOR>.svg)](https://www.nuget.org/packages/EntityFrameworkCore.Query/1.2.6.2)
 
 ### Using Nuget Package Manger:
 ```
@@ -25,7 +26,7 @@ Recommended package
 
 ### Use following nuget package for Asp.net Core 3.1 or .Net Core 3.1
 [![Generic badge](https://img.shields.io/badge/Nuget-1.3.1-<COLOR>.svg)](https://www.nuget.org/packages/EntityFrameworkCore.Query/1.3.1)
-
+[![Generic badge](https://img.shields.io/badge/Nuget-1.3.1.2-<COLOR>.svg)](https://www.nuget.org/packages/EntityFrameworkCore.Query/1.3.1.2)
 ### Using Nuget Package Manger:
 ```
 Old Package
