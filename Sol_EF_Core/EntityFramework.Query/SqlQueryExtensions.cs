@@ -85,7 +85,6 @@ namespace EntityFrameworkCore.Query
                 var data = await funcReaders(dbReader);
 
                 return data;
-
             }
             catch
             {
@@ -95,7 +94,6 @@ namespace EntityFrameworkCore.Query
             {
                 dbConnection.Close();
             }
-
         }
 
         public static async Task<TMultipleResultSet> SqlQueryMultipleAsync<TMultipleResultSet>(
@@ -132,8 +130,6 @@ namespace EntityFrameworkCore.Query
                 var data = await funcReaders(dbReader);
 
                 return data;
-
-
             }
             catch
             {
@@ -143,9 +139,6 @@ namespace EntityFrameworkCore.Query
             {
                 dbConnection.Close();
             }
-
-
-
         }
 
         public static async Task<TMultipleResultSet> SqlQueryMultipleAsync<TMultipleResultSet>(
@@ -182,8 +175,6 @@ namespace EntityFrameworkCore.Query
                 var data = await funcReaders(dbReader);
 
                 return data;
-
-
             }
             catch
             {
@@ -221,4 +212,3 @@ namespace EntityFrameworkCore.Query
         }
     }
 }
-
