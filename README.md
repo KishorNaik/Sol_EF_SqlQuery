@@ -42,7 +42,7 @@ Old Package
 > dotnet add package EntityFrameworkCore.Query --version 1.3.1
 
 Recommended package
-> dotnet add package EntityFrameworkCore.Query --version 1.3.1
+> dotnet add package EntityFrameworkCore.Query --version 1.3.1.2
 ```
 
 ### Step 1
@@ -152,6 +152,8 @@ You call this procedure by passing UsersMultipleResultSetModel as the type param
 ### Below code is working on following version only.
 #### 1. EntityFrameworkCore.Query -Version 1.2.6
 #### 2. EntityFrameworkCore.Query -Version 1.2.6.2
+#### 3. EntityFrameworkCore.Query -Version 1.3.1
+#### 4. EntityFrameworkCore.Query -Version 1.3.1.2
 
 ```C#
 
@@ -233,6 +235,7 @@ You call this procedure by passing UsersMultipleResultSetModel as the type param
 
 ### Below code is working on following version only.
 #### 1. EntityFrameworkCore.Query -Version 1.2.6.2
+#### 2. EntityFrameworkCore.Query -Version 1.3.1.2
 
 ```C#
 
