@@ -9,17 +9,16 @@ using Microsoft.Data.SqlClient;
 
 namespace Sol_Test
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Console.WriteLine("Entity Framework!");
 
-            Task.Run(async () => {
-
+            Task.Run(async () =>
+            {
                 try
                 {
-
                     // Make instance of EfCoreContext
                     EFCoreContext efCoreContext = new EFCoreContext();
 
@@ -50,17 +49,14 @@ namespace Sol_Test
                         throw;
                     }
 
-                    #endregion
+                    #endregion How to call and return join data from stored procedures in Entity Framework Core
 
                     #region Returning Multiple Result Sets from a Stored Procedure
 
                     try
                     {
-
-
                         List<TblUsers> listUserModel = new List<TblUsers>();
                         List<TblUserLogin> listUserLoginModel = new List<TblUserLogin>();
-
 
                         decimal userId = 2; // Get Current User Data
 
@@ -115,24 +111,72 @@ namespace Sol_Test
                                     }
                                 )
                             );
-
                     }
                     catch
                     {
                         throw;
                     }
 
-                    #endregion 
+                    #endregion Returning Multiple Result Sets from a Stored Procedure
 
+                    #region Returning Multiple Result Sets from a Stored Procedure Using Select Read extension method
+
+                    try
+                    {
+                        List<TblUsers> listUserModel1 = new List<TblUsers>();
+                        List<TblUserLogin> listUserLoginModel1 = new List<TblUserLogin>();
+
+                        decimal userId = 2; // Get Current User Data
+
+                        // Make Sql Parameters
+                        List<SqlParameter> sqlParameters2 = new List<SqlParameter>();
+                        sqlParameters2.Add(new SqlParameter("@UserId", userId));
+
+                        // Specify the procedure name with parameter
+                        String sqlCommand1 = "uspGetUsersMultiResultSet";
+
+                        // get Multiple Select query data
+                        var getMultileSelectQueryData =
+                            (
+                                await
+                                efCoreContext
+                                .SqlQueryMultipleAsync<UsersMultipleResultSetModel>(
+                                    sqlCommand1,
+                                    sqlParameters2,
+                                    System.Data.CommandType.StoredProcedure,
+                                    async (dbReaderObj) =>
+                                    {
+                                        // get First Result Set (First Select Query)
+                                        listUserModel1 = await dbReaderObj.SelectReadAsync<TblUsers>();
+
+                                        // get Next Result Set
+                                        await dbReaderObj.NextResultAsync();
+
+                                        // get Second Result Set (Second Select Query)
+                                        listUserLoginModel1 = await dbReaderObj.SelectReadAsync<TblUserLogin>();
+
+                                        // Map two lists Object into MultiResult Set Model
+                                        return new UsersMultipleResultSetModel()
+                                        {
+                                            ListUsers = listUserModel1,
+                                            ListUserLogin = listUserLoginModel1
+                                        };
+                                    }
+                                )
+                            );
+                    }
+                    catch
+                    {
+                        throw;
+                    }
+
+                    #endregion Returning Multiple Result Sets from a Stored Procedure Using Select Read extension method
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
-
-
             }).Wait();
-
         }
     }
 }
