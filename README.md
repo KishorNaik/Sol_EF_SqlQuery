@@ -308,3 +308,5 @@ If you are using .Net Core 3.1 then add following namespace for SqlParameter Cla
 ```C#
 using Microsoft.Data.SqlClient;
 ```
+You can find me here.
+[![Generic badge](https://img.shields.io/badge/Ideators.tech-<COLOR>.svg)](https://ideators.tech/)
